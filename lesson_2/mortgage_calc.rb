@@ -18,45 +18,42 @@ prompt "Let's calculate your mortgage!"
 loop do
   principal = ''
   loop do
-    prompt "How much is your loan principal?"
+    prompt 'How much is your loan principal?'
     principal = gets.chomp
 
     break if number?(principal)
 
-    prompt "Invalid number, try again."
+    prompt 'Invalid number, try again.'
   end
-  principal_int = principal.to_i
 
   interest_rate = ''
   loop do
-    prompt "What is your monthly interest rate?"
-  interest_rate = gets.chomp
+    prompt 'What is your monthly interest rate?'
+    interest_rate = gets.chomp
 
     break if number?(interest_rate)
 
-    prompt "Invalid number, try again."
+    prompt 'Invalid number, try again.'
   end
 
   loan_duration = ''
   loop do
-    prompt "What is the loan duration in years?"
+    prompt 'What is the loan duration in years?'
     loan_duration = gets.chomp
 
     break if number?(loan_duration)
 
-    prompt "Invalid number, try again."
+    prompt 'Invalid number, try again.'
   end
   
-
   annual_interest_rate = interest_rate.to_f / 100
   monthly_interest_rate = annual_interest_rate / 12
   months = loan_duration.to_i * 12
 
-  payment = principal.to_i * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-months)))
+  payment = principal.to_i * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)** -months))
   prompt "Your monthly payment is: $#{format('%.2f', payment)}"
-  prompt("Another calculation?")
+  prompt 'Another calculation?'
   answer = gets.chomp
 
   break unless answer.downcase.start_with?('y')
 end
-
