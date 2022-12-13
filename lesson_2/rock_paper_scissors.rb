@@ -4,15 +4,16 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def win?(first, second)
+  (first == 'rock' && second == 'scissors') ||
+    (first == 'paper' && second == 'rock') ||
+    (first == 'scissors' && second == 'paper')
+end
+
 def display_result(player, computer)
-  if (player == 'rock' && computer == 'scissors') ||
-    (player == 'paper' && computer == 'rock') ||
-    (player == 'scissors' && computer == 'paper')
-  prompt 'You won!'
-  elsif
-    (player == 'rock' && computer == 'paper') ||
-      (player == 'paper' && computer == 'scissors') ||
-      (player == 'scissors' && computer == 'rock')
+  if win?(player, computer)
+    prompt 'You won!'
+  elsif win?(computer, player)
     prompt 'You lost!'
   else
     prompt "It's a tie!"
@@ -28,7 +29,7 @@ loop do
     if VALID_CHOICES.include?(choice)
       break
     else
-      prompt "That is not a valid choice."
+      prompt 'That is not a valid choice.'
     end
   end
 
@@ -44,4 +45,3 @@ loop do
 end
 
 prompt 'Thanks for playing!'
-
