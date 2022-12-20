@@ -11,6 +11,7 @@ def win?(first, second)
 end
 
 def display_result(player, computer)
+  binding.pry
   if win?(player, computer)
     prompt 'You won!'
   elsif win?(computer, player)
@@ -19,7 +20,6 @@ def display_result(player, computer)
     prompt "It's a tie!"
   end
 end
-
 choice = ''
 loop do
   loop do
@@ -32,13 +32,10 @@ loop do
       prompt 'That is not a valid choice.'
     end
   end
-
   computer_choice = VALID_CHOICES.sample
 
   prompt "You choose: #{choice}; Computer chose: #{computer_choice}"
-
   display_result(choice, computer_choice)
-
   prompt 'Do you want to play again?'
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
