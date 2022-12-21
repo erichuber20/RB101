@@ -1,5 +1,5 @@
-require "pry"
-VALID_CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+VALID_CHOICES = %w(rock paper scissors lizard spock)
+VALID_CHOICES.freeze
 
 CHOICES = {
   rock: [:scissors, :lizard],
@@ -8,6 +8,7 @@ CHOICES = {
   lizard: [:paper, :spock],
   spock: [:rock, :scissors]
 }
+CHOICES.freeze
 
 ABBREVIATIONS = {
   'r' => :rock,
@@ -16,8 +17,7 @@ ABBREVIATIONS = {
   'l' => :lizard,
   'sp' => :spock
 }
-
-WINNING_SCORE = 3
+ABBREVIATIONS.freeze
 
 def prompt(message)
   puts "=> #{message}"
@@ -29,68 +29,55 @@ end
 
 def display_result(player, computer)
   if win?(player.to_sym, computer.to_sym)
-    prompt("You won!")
+    prompt 'You won!'
   elsif win?(computer.to_sym, player.to_sym)
-    prompt("You lost!")
+    prompt 'You lost!'
   else
-    prompt("It's a tie!")
+    prompt "It's a tie!"
   end
 end
 
-def score (first, second)
+def score(first, second)
   if win?(first.to_sym, second.to_sym)
-    return 1
+    1
   else
-    return 0
+    0
   end
 end
 
 def grand_winner?(user_score, computer_score)
   if user_score == 3
-    "User"
+    'User'
   elsif computer_score == 3
-    "Computer"
-  else
-    nil
+    'Computer'
   end
 end
 
 def display_grand_winner(user_score, computer_score)
   if user_score == 3
-    puts "You are the Grand Winner!"
+    puts 'You are the Grand Winner!'
   elsif computer_score == 3
-    puts "Computer is the Grand Winner :("
-  else
-    nil
-  end
-end
-
-def reset_score(user_score, computer_score)
-  if user_score == WINNING_SCORE || computer_score == WINNING_SCORE
-    user_score = 0 && computer_score = 0
-  else
-    nil
+    puts 'Computer is the Grand Winner :('
   end
 end
 
 choice_message = <<-MSG
-Enter r for rock
-    Enter sc for scissors
-    Enter p for paper
-    Enter l for lizard
-    Enter sp for spock
+  Type r for rock
+    Type sc for scissors
+    Type p for paper
+    Type l for lizard
+    Type sp for spock
 MSG
 
 user_score = 0
 computer_score = 0
 choice = ''
 loop do
-  prompt "Rock, Paper, Scissors, Lizard, Spock - first to 3 wins!"
-  user_score == 0
-  computer_score == 0
+  prompt 'Rock, Paper, Scissors, Lizard, Spock - first to 3 wins!'
+  user_score = 0
+  computer_score = 0
 
   loop do
-
     loop do
       prompt "Choose one: #{VALID_CHOICES.join(', ')}"
       prompt(choice_message)
@@ -100,7 +87,7 @@ loop do
         choice = ABBREVIATIONS[choice]
         break
       else
-        prompt("Invalid choice, try again.")
+        prompt 'Invalid choice, try again.'
       end
     end
 
@@ -108,26 +95,18 @@ loop do
 
     prompt "You choose: #{choice}; Computer chose: #{computer_choice}"
     display_result(choice, computer_choice)
+
     user_score += score(choice, computer_choice)
     computer_score += score(computer_choice, choice)
     puts "Your score: #{user_score}"
     puts "Computer score: #{computer_score}"
+
     display_grand_winner(user_score, computer_score)
     break if grand_winner?(user_score, computer_score)
   end
 
-  reset_score(user_score, computer_score)
-  #puts ''
-  #if user_score == 3
-    ##puts "You are the grand winner!"
-    #user_score = 0
-    #computer_score = 0
-  #else
-    ##puts "Computer is the grand winner :("
-    #user_score = 0
-    #computer_score = 0
-  #end
-  #puts ''
+  user_score = 0
+  computer_score = 0
 
   prompt 'Do you want to play again?'
   answer = gets.chomp
