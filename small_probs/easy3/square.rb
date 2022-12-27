@@ -17,3 +17,4 @@ end
 
 p power(5, 2)
 p power(3, 3)
+p 5**2
