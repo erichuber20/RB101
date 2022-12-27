@@ -10,3 +10,4 @@ puts famous_words_array.join(' ')
 puts "Four score and " + famous_words
 
 #other options on LS solutions that are cleaner than mine
+famous_words.prepend("Four score and ")
