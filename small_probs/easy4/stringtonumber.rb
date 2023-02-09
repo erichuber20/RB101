@@ -11,5 +11,5 @@ def string_to_integer(string)
   value
 end
 
-p string_to_integer('134')
+p string_to_integer('134') == 134
   

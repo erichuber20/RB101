@@ -42,3 +42,15 @@ def string_to_signed_integer(string)
   else          string_to_integer(string)
   end
 end
+
+# my solution after revisiting
+def string_to_signed_integer(string)
+  negative = string[0] == '-'
+  string.delete! "+-"
+  total = 0
+
+  string.chars.each do |digit|
+    total = (total * 10) + DIGITS[digit]
+  end
+  negative ? total * -1 : total
+end
