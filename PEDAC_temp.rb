@@ -3,15 +3,13 @@
 PEDAC Template
 ==============
 
-(Understand the) Problem
-------------------------
+
+
+Problem
+-------------------------------------------------
 
 -  Inputs:
 -  Output:
-
----
-
-**Problem Domain:**
 
 ---
 
@@ -27,12 +25,11 @@ PEDAC Template
 
 ---
 
-**Mental Model:**
 
----
+
 
 Examples / Test Cases / Edge Cases
-----------------------------------
+----------------------------------------------------
 
 **Examples:**
 
@@ -61,15 +58,29 @@ _Your Edge Cases:_
 
 ---
 
+
+
+
 Data Structure
---------------
+-----------------------------------------------
+
+
+
+
 
 ---
 
 Algorithm
 ---------
 
+
+
+
 Code
 ----
+
+
+
+
 
 =end

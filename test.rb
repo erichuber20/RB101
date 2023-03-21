@@ -1,6 +1,7 @@
-def penultimate(string)
-  string.split[-2]
+def some_method(number = 5)
+  puts number
 end
 
-p penultimate('last word') == 'last'
-p penultimate('Launch School is great!') == 'is'
+some_method
+
+some_method(9)

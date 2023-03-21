@@ -13,3 +13,7 @@ p xor?(5.even?, 4.odd?) == false
 
 # this takes advantage of the !<some_object> syntax that makes
 # an object the opposite of it boolean equivalent
+# next time i tried this i came up with this which I like better
+def xor?(arg1, arg2)
+  arg1 ? (arg2 ? false : true) : (arg2 ? true : false)
+end

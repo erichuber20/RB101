@@ -1,15 +1,10 @@
-def palindrome?(string)
-  string == string.reverse
+def uppercase?(string)
+  string == string.upcase
 end
 
-def real_palindrome?(string)
-  string = string.downcase.delete('^a-z0-9')
-  palindrome?(string)
-end
-
-p real_palindrome?('madam') #true
-p real_palindrome?('Madam') #true
-p real_palindrome?("Madam, I'm Adam") #true
-p real_palindrome?('356653') #true
-p real_palindrome?('356a653') #true
-p real_palindrome?('123ab321') #false
+p uppercase?('t') == false
+p uppercase?('T') == true
+p uppercase?('Four Score') == false
+p uppercase?('FOUR SCORE') == true
+p uppercase?('4SCORE!') == true
+p uppercase?('') == true
