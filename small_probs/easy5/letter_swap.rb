@@ -11,4 +11,20 @@ def swap(string)
 end
 
 p swap('Hello it is Eric')
-    
+
+
+=begin
+
+my solution later on
+
+def swap(string)
+  array = string.split.each do |word|
+    word[0], word[-1] = word[-1], word[0]
+  end
+
+  array.join(' ')
+end
+
+=end
+
+

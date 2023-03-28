@@ -1,7 +1,7 @@
-def include?(array, value)
+def include?(array, search_value)
   array.each do |element|
-    return true if value == element
-    end
+    return true if search_value == element
+  end
   false
 end
 
