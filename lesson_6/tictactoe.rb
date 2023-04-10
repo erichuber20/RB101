@@ -41,7 +41,7 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
-def player_places_piece!(brd)  
+def player_places_piece!(brd)
   square = ''
   loop do
     prompt "Choose a position to place a piece: #{joinor(empty_squares(brd))}"
@@ -52,6 +52,8 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/MethodLength
 def computer_places_piece!(brd)
   square = nil
 
@@ -83,6 +85,8 @@ def computer_places_piece!(brd)
 
   brd[square] = COMPUTER_MARKER
 end
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/MethodLength
 
 def board_full?(brd)
   empty_squares(brd).empty?
@@ -114,13 +118,15 @@ def joinor(arr, delimiter=', ', word='or')
   end
 end
 
+# rubocop:disable Style/EmptyElse
 def find_at_risk_square(line, board, marker)
   if board.values_at(*line).count(marker) == 2
-    board.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+    board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
   else
     nil
   end
 end
+# rubocop:enable Style/EmptyElse
 
 def first_turn
   first = ''
@@ -135,7 +141,7 @@ end
 
 def player_first_play(board)
   loop do
-    display_board(board) 
+    display_board(board)
 
     player_places_piece!(board)
     display_board(board)
@@ -149,7 +155,7 @@ end
 
 def computer_first_play(board)
   loop do
-    display_board(board) 
+    display_board(board)
 
     computer_places_piece!(board)
     display_board(board)
@@ -165,9 +171,9 @@ computer_wins = 0
 player_wins = 0
 no_of_ties = 0
 
-loop do 
-  board = intialize_board 
-  
+loop do
+  board = intialize_board
+
   if first_turn == 'Player'
     puts 'Player goes first'
     sleep(2)
