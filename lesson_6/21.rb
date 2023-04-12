@@ -25,7 +25,7 @@ def total(cards)
 
   # correct Aces
   values.select { |value| value == 'A' }.count.times do
-    sum -=10 if sum > 21
+    sum -= 10 if sum > 21
   end
 
   sum
@@ -71,19 +71,19 @@ end
 
 def play_again?
   prompt "Do you want to play again? (y or n)"
-  answer= gets.chomp
+  answer = gets.chomp
   answer.downcase.start_with?('y')
 end
 
 loop do
   prompt "Welcome to 21"
 
-  #initialize variables
+  # initialize variables
   deck = initialize_deck
   player_cards = []
   dealer_cards = []
 
-  #initial deal
+  # initial deal
   2.times do
     player_cards << deck.pop
     dealer_cards << deck.pop
@@ -92,7 +92,7 @@ loop do
   prompt "Dealer has #{dealer_cards[0]} and ?"
   prompt "You have: #{player_cards[0]} and #{player_cards[1]}, totaling #{total(player_cards)}."
 
-  #player turn
+  # player turn
   loop do
     player_turn = nil
     loop do
@@ -118,7 +118,7 @@ loop do
     prompt "You stayed at #{total(player_cards)}"
   end
 
-  #dealer turn
+  # dealer turn
   prompt "Dealer's turn..."
 
   loop do
@@ -137,7 +137,7 @@ loop do
     prompt "Dealer stays at #{total(dealer_cards)}"
   end
 
-  #both player and dealer stays - compare
+  # both player and dealer stays - compare
   prompt "Dealer has #{dealer_cards}, totaling #{total(dealer_cards)}"
   prompt "You have #{player_cards}, totaling #{total(player_cards)}"
 
