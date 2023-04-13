@@ -54,15 +54,25 @@ def display_result(dealer_total, player_total)
 
   case result
   when :player_busted
-    prompt "You busted! Dealer wins!"
+    puts "------------------------"
+    puts "You busted! Dealer wins!"
+    puts "------------------------"
   when :dealer_busted
-    prompt "Dealer busted! You win!"
+    puts "------------------------"
+    puts " Dealer busted! You win!"
+    puts "------------------------"
   when :player
-    prompt "You win!"
+    puts "------------------------"
+    puts "       You win!"
+    puts "------------------------"
   when :dealer
-    prompt "Dealer wins!"
+    puts "------------------------"
+    puts "      Dealer wins!"
+    puts "------------------------"
   when :tie
-    prompt "It's a tie!"
+    puts "------------------------"
+    puts "      It's a tie!"
+    puts "------------------------"
   end
 end
 
@@ -72,15 +82,39 @@ def play_again?
   answer.downcase.start_with?('y')
 end
 
-loop do
+def round_end
+  puts "------------------------"
+  puts "       ROUND OVER"
+  puts "------------------------"
+end
+
+def initial_display(dealer_score, player_score)
   system 'clear'
   prompt "Welcome to 21"
+  prompt "You: #{player_score}"
+  prompt "Dealer: #{dealer_score}"
+end
+
+def track_score(dealer_score, player_score, dealer_total, player_total)
+  winner = detect_result(dealer_total, player_total)
+  if winner == :player_busted || winner == :dealer
+    dealer_score += 1
+  elsif winner == :dealer_busted || winner == :player
+    player_score += 1
+  end
+  prompt "You: #{player_score}"
+  prompt "Dealer: #{dealer_score}"
+end
+
+player_score = 0
+dealer_score = 0
+loop do
+  initial_display(dealer_score, player_score)
 
   # initialize variables
   deck = initialize_deck
   player_cards = []
   dealer_cards = []
-
 
   # initial deal
   2.times do
@@ -116,6 +150,11 @@ loop do
 
   if busted?(player_total)
     display_result(dealer_total, player_total)
+    round_end
+    dealer_score += 1
+    puts "You: #{player_score}"
+    puts "Dealer: #{dealer_score}"
+    # track_score(dealer_score, player_score, dealer_total, player_total)
     play_again? ? next : break
   else
     prompt "You stayed at #{player_total}"
@@ -136,6 +175,11 @@ loop do
   if busted?(dealer_total)
     prompt "Dealer's total is now: #{dealer_total}"
     display_result(dealer_total, player_total)
+    player_score += 1
+    puts "You: #{player_score}"
+    puts "Dealer: #{dealer_score}"
+    # track_score(dealer_score, player_score, dealer_total, player_total)
+    round_end
     play_again? ? next : break
   else
     prompt "Dealer stays at #{dealer_total}"
@@ -147,6 +191,31 @@ loop do
 
   display_result(dealer_total, player_total)
 
+  winner = detect_result(dealer_total, player_total)
+
+  if winner == :dealer || winner == :player_busted
+    dealer_score += 1
+  elsif winner == :player || winner == :dealer_busted
+    player_score += 1
+  elsif winner == :tie
+    nil
+  end
+
+  puts "You: #{player_score}"
+  puts "Dealer: #{dealer_score}"
+      # track_score(dealer_score, player_score, dealer_total, player_total)
+  
+  round_end
+
+  if player_score == 5
+    prompt "You are the Grand Winner! Game Over"
+    player_score = 0
+    dealer_score = 0
+  elsif dealer_score == 5
+    prompt "Dealer is the Grand Winner! Game Over"
+    player_score = 0
+    dealer_score = 0
+  end
   break unless play_again?
 end
 
