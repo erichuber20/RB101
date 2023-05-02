@@ -1,7 +1,8 @@
-def rotate_rightmost_digits(integer, n)
-  first = integer.to_s.split('')
-  last = first.delete_at(-n)
-  (first << last).join.to_i
+def rotate_rightmost_digits(integer, digit)
+  digits = integer.digits.reverse
+  rotated_digit = digits[-digit]
+  digits.delete_at(-digit)
+  digits.push(rotated_digit).join.to_i
 end
 
 p rotate_rightmost_digits(735291, 1) == 735291
