@@ -40,20 +40,20 @@ reject all the prime numbers, leaving only not prime integers (satisfying all im
   determine prime
     iterate through odd_integers
       divide each integer by integers from 1 to integer and place into factors array if remainder is 0
-      if factors array size is 2, select that integer and place into outputs array
+      if factors array size is 2, reject that integer and place into outputs array
 count the size of the array
 
 =end
 
-def prime?(int)
+def factors(int)
   integers = (1..int).to_a
-  factors = integers.select { |factor| int % factor == 0 }
+  factors_array = integers.select { |factor| int % factor == 0 }
 end
 
 def odd_not_prime(x)
   integers = (1..x).to_a
   odd_integers = integers.select { |int| int.odd? }
-  outputs = odd_integers.reject { |odd_int| prime?(odd_int).size == 2 }
+  outputs = odd_integers.reject { |odd_int| factors(odd_int).size == 2 } # any integer that has exactly 2 factors is rejected since they would be prime numbers, leaving only not prime left to count
   outputs.size
 end
 
