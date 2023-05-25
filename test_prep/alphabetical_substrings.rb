@@ -44,39 +44,28 @@ Determine which substring is the longest
 
 
 =end
-require 'pry'
-def substring(string)
-  substrings = []
-
-  (0..substrings.length).each do |index|
-    (index...string.length).each do |end_index|
-      substrings << string[index..end_index]
-    end
-  end
-  substrings
-end
 
 def longest(string)
-  substrings = substring(string)
-  alphabetical_substrings = []
-  longest_substring = ''
+  substrings = []
 
-  substrings.each do |substring|
-    alphabetical_substrings << substring if substring.chars.sort == substring.chars
+  (0...string.length).each do |i|
+    (i...string.length).each do |ii|
+      substrings << string[i..ii]
+    end
   end
 
-  alphabetical_substrings.each do |alphabetical_substring|
-    longest_substring = alphabetical_substring if alphabetical_substring.length > longest_substring.length
+  alphabetical_substrings = substrings.select do |substring|
+    substring.chars == substring.chars.sort
   end
-  
-  longest_substring
+
+  alphabetical_substrings.max { |a, b| a.size <=> b.size}
 end
 
-# p substring('asd')
-# p longest('asd') == 'as'
-p longest('nab') #== 'ab'
-# p longest('abcdeapbcdef') ==  'abcde'
-p longest('asdfaaaabbbbcttavvfffffdf') #== 'aaaabbbbctt'
-p longest('asdfbyfgiklag') #== 'fgikl'
-# p longest('z') == 'z'
-# p longest('zyba') == 'z'
+
+p longest('asd') == 'as'
+p longest('nab') == 'ab'
+p longest('abcdeapbcdef') ==  'abcde'
+p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+p longest('asdfbyfgiklag') == 'fgikl'
+p longest('z') == 'z'
+p longest('zyba') == 'z'

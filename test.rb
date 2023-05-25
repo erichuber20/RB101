@@ -1,43 +1,71 @@
+# Find the longest substring in alphabetical order.
+# Example: the longest alphabetical substring in "asdfaaaabbbbcttavvfffffdf" is "aaaabbbbctt".
+# The input will only consist of lowercase characters and will be at least one letter long.
+# If there are multiple solutions, return the one that appears first.
+
+
 =begin
-(​https://www.codewars.com/kata/5842df8ccbd22792a4000245​)
-6 kyu
-Write Number in Expanded Form
-You will be given a number and you will need to return it as a string in Expanded Form. For example:
-expanded_form(12); # Should return '10 + 2' expanded_form(42); # Should return '40 + 2' expanded_form(70304); # Should return '70000 + 300 + 4' NOTE: All numbers will be whole numbers greater than 0.
-If you liked this kata, check out part 2!! 
+PROBLEM-----------
+  determine the longest substring within a given string that is in alphabetical order
+
+  explicit req:
+inputs are only lowercase letters
+inputs are at least one letter long
+if there are multiple solutions, just return the first
+
+  implicit req:
+no spaces or special characters
+no uppercase
+
+
+EXAMPLES ---------
+'asd' == 'as'
+'abcdeapbcdef' == 'abcde'
+'z' == 'z'
+'zyba' == 'z'
+
+DATA -----------
+arrays
+strings
+
+
+ALGORITHM -------------
+
+take the input string and split it into an array of characters
+initialize an array of substrings to an empty array
+
+iterate through that array of characters and determine if the character at the next index is in alphabetical order
+  add that character to the substrings array
+continue iteration until the character at the next index is not in alphabetical order
+
+Determine which substring is the longest 
+  iterate through substring array and return the substring that has the greatest length
+
+
+
 =end
 
-def expanded_form(int)
-  multiplier = 10
-  results = []
+def longest(string)
+  substrings = []
 
-  loop do
-    remainder = int % multiplier
-    results << remainder if remainder != 0
-    multiplier *= 10
-    int -= remainder
-    break if int == 0
-  end
-
-  results.reverse!
-  integers = ('0'..'9').to_a
-  results_string = ''
-
-  for number in results
-    results_string << number.to_s + ' + '
-  end
-
-  unless integers.include?(results_string[-1])
-    characters = results_string.chars
-    3.times do
-      characters.delete_at(-1)
+  (0...string.length).each do |i|
+    (i...string.length).each do |ii|
+      substrings << string[i..ii]
     end
-    results_string = characters.join
   end
 
-  results_string
+  alphabetical_substrings = substrings.select do |substring|
+    substring.chars == substring.chars.sort
+  end
+
+  alphabetical_substrings.max { |a, b| a.size <=> b.size}
 end
 
-p expanded_form(12) == '10 + 2'
-p expanded_form(42) == '40 + 2'
-p expanded_form(70304) == '70000 + 300 + 4'
+
+p longest('asd') == 'as'
+p longest('nab') == 'ab'
+p longest('abcdeapbcdef') ==  'abcde'
+p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+p longest('asdfbyfgiklag') == 'fgikl'
+p longest('z') == 'z'
+p longest('zyba') == 'z'
