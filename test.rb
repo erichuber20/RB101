@@ -1,71 +1,103 @@
-# Find the longest substring in alphabetical order.
-# Example: the longest alphabetical substring in "asdfaaaabbbbcttavvfffffdf" is "aaaabbbbctt".
-# The input will only consist of lowercase characters and will be at least one letter long.
-# If there are multiple solutions, return the one that appears first.
+# Write a method named to_weird_case that accepts a string, and
+# returns the same sequence of characters with every 2nd character
+# in every third word converted to uppercase. Other characters
+# should remain the same.
 
+# Examples:
+
+# p to_weird_case('Lorem Ipsum is simply dummy text of the printing') ==
+#                 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
+# p to_weird_case(
+#   'It is a long established fact that a reader will be distracted') ==
+#   'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+# p to_weird_case('aaA bB c') == 'aaA bB c'
+# p to_weird_case(
+#   'Miss Mary Poppins word is supercalifragilisticexpialidocious') ==
+#   'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'
+
+# The tests above should print "true".
 
 =begin
-PROBLEM-----------
-  determine the longest substring within a given string that is in alphabetical order
 
-  explicit req:
-inputs are only lowercase letters
-inputs are at least one letter long
-if there are multiple solutions, just return the first
+PROBLEM ----------
 
-  implicit req:
-no spaces or special characters
-no uppercase
+explicit:
+  input is a string
+  output is a string
+  for every 3rd word, every 2nd character should be uppercased
+    other characters should remain the same
+  
+implicit:
+    if there is not second character, do not uppercase the 1st, skip that word and the counting starts over as it normally would
+    
+inputs: string
+outputs: string with every other character in the third word uppercased
 
+EXAMPLES ------------
 
-EXAMPLES ---------
-'asd' == 'as'
-'abcdeapbcdef' == 'abcde'
-'z' == 'z'
-'zyba' == 'z'
+  p to_weird_case('Lorem Ipsum is simply dummy text of the printing') ==
+                'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
+p to_weird_case(
+  'It is a long established fact that a reader will be distracted') ==
+  'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+p to_weird_case('aaA bB c') == 'aaA bB c'
+p to_weird_case(
+  'Miss Mary Poppins word is supercalifragilisticexpialidocious') ==
+  'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'
 
-DATA -----------
-arrays
+DATA ----------
+
 strings
+arrays
 
+MODELING ----------
 
-ALGORITHM -------------
+=> split input string into array of words 'Lorem Ipsum is simply dummy text of the printing'
+  => ["Lorem", "Ipsum", "is", "simply", "dummy", "text", "of", "the", "printing"]
+    => iterate through words with an index
+      => if index is evenly divisible by 3
+        => index assign an upcased character to every character at an even index
+          => for each character that is at an odd index, uppercase 'iS' 'tExT' ...
+      => place each word into the results array
+          => join strings together with a space between and return
 
-take the input string and split it into an array of characters
-initialize an array of substrings to an empty array
+ALGORITHM ---------
 
-iterate through that array of characters and determine if the character at the next index is in alphabetical order
-  add that character to the substrings array
-continue iteration until the character at the next index is not in alphabetical order
-
-Determine which substring is the longest 
-  iterate through substring array and return the substring that has the greatest length
-
-
-
+  split input string into an array of strings (words)
+    initailze a results empty array
+      iterate through words
+       if index is divisible by 3
+        initialize an index variable
+          start a loop
+            if the index for the character is odd (starting at index 0)
+              uppercase that character
+      place word into results array (unchanged and case changed)
+        join array with space between and return that string
 =end
 
-def longest(string)
-  substrings = []
+def to_weird_case(string)
+  results = []
+  words = string.split
+  
+  words.each_with_index do |word, i|
 
-  (0...string.length).each do |i|
-    (i...string.length).each do |ii|
-      substrings << string[i..ii]
+    if (i + 1) % 3 == 0
+      index = 0
+      loop do
+        word[index] = word[index].upcase if index.odd?
+        index += 1
+        break if index == word.length
+      end
+      results << word
+    else
+      results << word
     end
   end
-
-  alphabetical_substrings = substrings.select do |substring|
-    substring.chars == substring.chars.sort
-  end
-
-  alphabetical_substrings.max { |a, b| a.size <=> b.size}
+  results.join(' ')
 end
 
 
-p longest('asd') == 'as'
-p longest('nab') == 'ab'
-p longest('abcdeapbcdef') ==  'abcde'
-p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
-p longest('asdfbyfgiklag') == 'fgikl'
-p longest('z') == 'z'
-p longest('zyba') == 'z'
+p to_weird_case('Lorem Ipsum is simply dummy text of the printing') == 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
+p to_weird_case('It is a long established fact that a reader will be distracted') == 'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+p to_weird_case('aaA bB c') == 'aaA bB c'
+p to_weird_case('Miss Mary Poppins word is supercalifragilisticexpialidocious') == 'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'

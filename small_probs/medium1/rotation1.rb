@@ -18,3 +18,12 @@ p x == [1, 2, 3, 4]                 # => true
 #   array_clone << array[0]
 #   array_clone
 # end
+
+
+
+# my other good solution
+
+# def rotate_array(arr)
+#   arr.push(arr.shift)
+# end
+

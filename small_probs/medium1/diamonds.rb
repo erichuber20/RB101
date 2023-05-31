@@ -7,7 +7,7 @@ inputs: integer
 outputs: strings in diamond art
 
 Explicit requirements: 
-integer is always off
+integer is always odd
 diamond has to be 4 pointed
 
 Clarifying questions:
