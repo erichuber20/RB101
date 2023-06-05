@@ -18,3 +18,9 @@ end
 
 p panagram?("The quick brown fox jumps over the lazy dog.") == true
 p panagram?("This is not a pangram.") == false
+
+# OTHER REFACTORED SOLUTION THAT IS ALSO GOOD BUT DOESNT ACCOUNT FOR NON ALPHANUMERIC CHARACTERS
+
+def panagram?(string)
+  ('a'..'z').map { |letter| string.downcase.include?(letter) }.all?(true)
+end

@@ -1,3 +1,9 @@
+=begin
+
+https://www.codewars.com/kata/54da5a58ea159efa38000836/solutions/ruby
+
+=end
+
 def find_it(array)
   number_counts = Hash.new(0)
   array.each do |digit|
