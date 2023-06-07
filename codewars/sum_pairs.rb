@@ -66,46 +66,33 @@ return the results array if there is only one element otherwise
 
 =end
 
-# def sum_pairs(ints, target_sum)
-#   results = []
-#   indices = []
-#   (0..ints.size).each do |i|
-#     (i+1..ints.size-1).each do |ii|
-#       pair = [ints[i], ints[ii]]
-#       if pair.sum == target_sum
-#         results << pair
-#         indices << ii
-#       end
-#     end
-#   end
-#   return results[0] if results.size == 1
-
-#   smallest_index = indices.min
-
-#   final_pair = results.select do |pair|
-#     pair[1] == ints[smallest_index]
-#   end
-
-#   final_pair[0]
-# end
-require 'pry'
 def sum_pairs(ints, target_sum)
   results = []
   indices = []
-  ints.each do |int|
-    (1..ints.size - 1).each do |i|
-      if int + ints[i] == target_sum #&& (ints.index(results[1]) > i || results == [])
-        results << [int, ints[i]]
-        indices << i
+
+  (0..ints.size).each do |i|
+    (i+1..ints.size-1).each do |ii|
+      pair = [ints[i], ints[ii]]
+
+      if pair.sum == target_sum
+        results << pair
+        indices << ii
       end
+
     end
   end
 
-  results
-  indices
+  return results[0] if results.size == 1
+
+  smallest_index = indices.min
+
+  final_pair = results.select do |pair|
+    pair[1] == ints[smallest_index]
+  end
+
+  final_pair[0]
 end
 
-
-# p sum_pairs([11,3,7,5], 10) == [3, 7]
-p sum_pairs([10, 5, 2, 3, 7, 5], 10) #== [3, 7]
-# p sum_pairs([1, 2, 3, 4, 1, 0], 2) == [1, 1]
+p sum_pairs([11,3,7,5], 10) == [3, 7]
+p sum_pairs([10, 5, 2, 3, 7, 5], 10) == [3, 7]
+p sum_pairs([1, 2, 3, 4, 1, 0], 2) == [1, 1]
