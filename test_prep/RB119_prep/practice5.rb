@@ -68,10 +68,9 @@ Modeling -------------------------------------------------------
 split string into characters array
 initialize a new hash counts
 iterate through characters and for each character
-  add 1 to the value for the key that is equal to character
+  in counts, set the key as character and increment the value by 1
 find the key that has the smallest_value
-return counts with the reference to the smallest_value key
-
+return the key in counts with the reference to the smallest_value
 
 
 Algorithm ------------------------------------------------------

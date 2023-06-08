@@ -66,32 +66,49 @@ return the results array if there is only one element otherwise
 
 =end
 
+
 def sum_pairs(ints, target_sum)
-  results = []
-  indices = []
+  indices = Hash.new(0)
 
   (0..ints.size).each do |i|
     (i+1..ints.size-1).each do |ii|
       pair = [ints[i], ints[ii]]
-
       if pair.sum == target_sum
-        results << pair
-        indices << ii
+        indices[ii] = pair
       end
-
     end
   end
 
-  return results[0] if results.size == 1
-
-  smallest_index = indices.min
-
-  final_pair = results.select do |pair|
-    pair[1] == ints[smallest_index]
-  end
-
-  final_pair[0]
+  return nil if indices.keys.size == 0
+  indices[indices.keys.min]
 end
+
+# def sum_pairs(ints, target_sum)
+#   results = []
+#   indices = []
+
+#   (0..ints.size).each do |i|
+#     (i+1..ints.size-1).each do |ii|
+#       pair = [ints[i], ints[ii]]
+
+#       if pair.sum == target_sum
+#         results << pair
+#         indices << ii
+#       end
+
+#     end
+#   end
+
+#   return results[0] if results.size == 1
+
+#   smallest_index = indices.min
+
+#   final_pair = results.select do |pair|
+#     pair[1] == ints[smallest_index]
+#   end
+
+#   final_pair[0]
+# end
 
 p sum_pairs([11,3,7,5], 10) == [3, 7]
 p sum_pairs([10, 5, 2, 3, 7, 5], 10) == [3, 7]
