@@ -97,29 +97,27 @@ def to_weird_case(string)
 end
 
 
-#OTHER SOLUTION
-# def to_weird_case(string)
-#   results = []
-  
-#   result = string.split.map.with_index do |word, i|
-#     if word.length <=1
-#       word
-#     else
+#OTHER SOLUTION WITH #MAP AND #STEP
+def to_weird_case(string)    
+result = string.split.map.with_index do |word, i|
+  if word.length <=1
+    word
+  else
 
-#       if (i + 1) % 3 == 0
-#         characters = word.chars
-#         (1..characters.length-1).step(2) do |i|
-#           characters[i].upcase!
-#         end
-#         characters.join
-#       else
-#         word
-#       end
+    if (i + 1) % 3 == 0
+      characters = word.chars
+      (1..characters.length-1).step(2) do |i|
+        characters[i].upcase!
+      end
+      characters.join
+    else
+      word
+    end
 
-#     end
-#   end
-#   result.join(' ')
-# end
+  end
+end
+result.join(' ')
+end
 
 p to_weird_case('Lorem Ipsum is simply dummy text of the printing') == 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
 p to_weird_case('It is a long established fact that a reader will be distracted') == 'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
