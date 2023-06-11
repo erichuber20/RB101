@@ -99,10 +99,7 @@ end
 
 #OTHER SOLUTION WITH #MAP AND #STEP
 def to_weird_case(string)    
-result = string.split.map.with_index do |word, i|
-  if word.length <=1
-    word
-  else
+  result = string.split.map.with_index do |word, i|
 
     if (i + 1) % 3 == 0
       characters = word.chars
@@ -118,6 +115,28 @@ result = string.split.map.with_index do |word, i|
 end
 result.join(' ')
 end
+
+=begin
+  
+SIMILAR TO FIRST SOLUTION
+
+def to_weird_case(string)
+  words = string.split
+  results = []
+
+  words.each_with_index do |word, i|
+
+    if (i + 1) % 3 == 0
+      results << word.chars.map.with_index { |char, index| index.odd? ? char.upcase! : char }.join
+    else
+      results << word
+    end
+  
+  end
+  results.join(' ')
+end
+
+=end
 
 p to_weird_case('Lorem Ipsum is simply dummy text of the printing') == 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
 p to_weird_case('It is a long established fact that a reader will be distracted') == 'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'

@@ -54,20 +54,17 @@ return the subarray at index 0
 =end
 
 def closest_numbers(array)
-  subarrays = []
+  pairs = []
 
-  (0..array.size - 1).each do |i|
-    (i + 1..array.size - 1).each do |ii|
-      subarrays << [array[i], array[ii]]
+  (0..array.size).each do |i|
+    (i+1..array.size - 1).each do |ii|
+      pairs << [array[i], array[ii]]
     end
   end
 
-  subarrays.sort_by! do |subarray|
-    (subarray[0] - subarray[1]).abs
-  end
-
-  subarrays[0]
-
+  pairs.sort_by! { |pair| (pair[0]-pair[1]).abs }
+  
+  pairs[0]
 end
   
 p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]

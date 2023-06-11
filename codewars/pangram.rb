@@ -24,3 +24,15 @@ p panagram?("This is not a pangram.") == false
 def panagram?(string)
   ('a'..'z').map { |letter| string.downcase.include?(letter) }.all?(true)
 end
+
+def panagram?(string)
+  uniq_chars = []
+  characters = string.upcase!.chars
+  characters.select! { |char| ('A'..'Z').include?(char) }
+
+  characters.each do |char|
+    next if uniq_chars.include?(char)
+    uniq_chars << char
+  end
+  uniq_chars.size == 26
+end

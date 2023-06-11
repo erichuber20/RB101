@@ -59,6 +59,22 @@ ALGORITHM ---------
 
 =end
 
+def minimum_sum(integers)
+  return nil if integers.size < 5
+  sub_arrays = []
+
+  (0..integers.size).each do |i|
+    (i+1..integers.size).each do |ii|
+      sub_arrays << integers[i..ii] if integers[i..ii].size == 5
+    end
+  end
+
+  sub_arrays.map { |subarray| subarray.sum }.min
+end
+
+
+
+=begin
 def minimum_sum(arr)
   return nil if arr.size < 5
   subarrays = []
@@ -72,6 +88,8 @@ def minimum_sum(arr)
   end
   runs_of_5.map { |result| result.sum }.min
 end
+=end
+
 
 p minimum_sum([1, 2, 3, 4]) == nil
 p minimum_sum([1, 2, 3, 4, 5, 6]) == 15

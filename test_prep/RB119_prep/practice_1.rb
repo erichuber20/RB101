@@ -67,11 +67,9 @@ return results array
 
 =end
 
-def smaller_numbers_than_current(input_array)
-  unique_array = input_array.uniq
-
-  results = input_array.map do |int|
-    unique_array.count do |uniq_int|
+def smaller_numbers_than_current(integers)
+  integers.map do |int|
+    integers.uniq.count do |uniq_int|
       int > uniq_int
     end
   end
